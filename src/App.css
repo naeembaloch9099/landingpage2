@@ -1,0 +1,18 @@
+/* Reset any centering that might affect layout */
+.App {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+/* Optional: global font style */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* For smooth sticky navbar behavior */
+body {
+  overflow-x: hidden;
+}

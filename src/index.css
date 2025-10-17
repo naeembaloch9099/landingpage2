@@ -1,0 +1,264 @@
+/* === Base styles === */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Theme variables */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --muted: #64748b; /* slate-500 */
+  --text: #0f172a; /* slate-900 */
+  --primary: #2563eb; /* blue-600 */
+  --accent: #7c3aed; /* purple-ish */
+
+  color-scheme: light dark;
+  color: var(--text);
+  background-color: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* dark theme overrides when .dark is present on the root element */
+.dark {
+  --bg: #0b1220; /* dark background */
+  --surface: #071223; /* slightly lighter */
+  --muted: #94a3b8; /* slate-300 */
+  --text: #e6eef8; /* light text */
+  --primary: #60a5fa; /* blue-400 */
+  --accent: #a78bfa; /* purple-300 */
+}
+
+/* === Links === */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* === Body Fix (removed center alignment) === */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+/* === Root Fix (no forced centering) === */
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* === Tailwind directives (must stay at bottom) === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Optional extras if you still use Vite default assets === */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* ===== Animations ===== */
+@keyframes floatY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.anim-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+.anim-fade-up {
+  animation: fadeInUp 700ms cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+/* 3D tilt container helper - children will receive transform-style */
+.tilt {
+  perspective: 1200px;
+}
+.tilt-inner {
+  transform-style: preserve-3d;
+  transition: transform 200ms ease;
+  will-change: transform;
+}
+
+/* small shadow lift used when hovered */
+.lift {
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.lift:hover {
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  transform: translateY(-4px);
+}
+
+/* stronger 3D card look for recommendations */
+.card-3d {
+  transform-origin: center;
+  will-change: transform, box-shadow;
+}
+.card-3d .tilt-inner {
+  transition: transform 350ms cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 250ms;
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
+}
+.card-3d:hover .tilt-inner {
+  transform: rotateX(6deg) rotateY(-6deg) translateZ(12px);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
+}
+
+/* subtle image parallax */
+.card-3d img {
+  transform-origin: center;
+  transition: transform 450ms cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+.card-3d:hover img {
+  transform: scale(1.03) translateZ(6px);
+}
+
+/* make cards feel lively on entrance */
+.anim-fade-up {
+  animation: fadeInUp 650ms cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+/* ===== More micro-animations ===== */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes starShine {
+  0% {
+    transform: translateY(2px) scale(0.98);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(0) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(2px) scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+.text-pop {
+  display: inline-block;
+  animation: popIn 520ms cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+.badge-anim {
+  animation: badgePulse 2000ms ease-in-out infinite;
+}
+
+.stars-anim > svg {
+  display: inline-block;
+  animation: starShine 2000ms ease-in-out infinite;
+}
+
+.btn-pop {
+  transform-origin: center;
+  transition: transform 220ms cubic-bezier(0.2, 0.9, 0.25, 1), box-shadow 220ms;
+}
+.btn-pop:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.12);
+}
+
+/* slight delay helper */
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-180 {
+  animation-delay: 180ms;
+}
+.delay-260 {
+  animation-delay: 260ms;
+}
+
+/* 3D text helpers for headings/descriptions */
+.text-3d {
+  perspective: 900px;
+  display: inline-block;
+}
+.text-3d-inner {
+  display: inline-block;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(0.2, 0.9, 0.25, 1), text-shadow 420ms;
+  will-change: transform, text-shadow;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.03), 0 6px 20px rgba(2, 6, 23, 0.04);
+}
+.text-3d:hover .text-3d-inner {
+  transform: rotateX(8deg) rotateY(-8deg) translateZ(18px);
+  text-shadow: 0 12px 30px rgba(2, 6, 23, 0.12), 0 2px 6px rgba(2, 6, 23, 0.06);
+}
+
+/* entrance variant that includes small Z translation */
+@keyframes fadeInUp3D {
+  from {
+    opacity: 0;
+    transform: translateY(10px) translateZ(-6px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1);
+  }
+}
+.anim-fade-up-3d {
+  animation: fadeInUp3D 720ms cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
